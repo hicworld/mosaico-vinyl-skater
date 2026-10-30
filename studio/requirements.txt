@@ -1,0 +1,9 @@
+# Preview, editing, manual-BPM import, LRC and MP4 export. No neural weights.
+numpy>=1.24,<3
+scipy>=1.10,<2
+Pillow>=10,<13
+wasmtime>=39,<50
+sounddevice>=0.5,<0.6
+pyserial==3.5
+
+# Optional analysis/recognition dependencies live in root requirements files.

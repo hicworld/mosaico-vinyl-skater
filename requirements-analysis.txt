@@ -1,0 +1,5 @@
+# Install the CPU PyTorch wheels first; see importer/Setup-Importer.ps1.
+-r requirements.txt
+torch==2.6.0
+torchaudio==2.6.0
+-r importer/requirements.txt

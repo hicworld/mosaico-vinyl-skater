@@ -1,0 +1,3 @@
+# Optional estimated vocal phrase ends; ordinary LRC import does not need this.
+-r requirements.txt
+openai-whisper==20250625

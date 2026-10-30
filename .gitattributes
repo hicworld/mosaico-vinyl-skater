@@ -1,0 +1,15 @@
+* text=auto
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.txt text eol=lf
+*.ps1 text eol=crlf
+*.cmd text eol=crlf
+# Native snapshots use byte-for-byte source hashes in their manifest.
+native/renderer/*.c -text whitespace=cr-at-eol
+native/renderer/*.h -text whitespace=cr-at-eol
+*.wasm binary
+*.gz binary
+*.wav binary
+*.png binary

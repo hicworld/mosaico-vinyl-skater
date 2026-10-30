@@ -1,0 +1,76 @@
+{
+  "format": 1,
+  "clip_count": 55,
+  "theme_count": 6,
+  "theme_ids": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "record_color_count": 4,
+  "scene_revision": 3,
+  "formats": [
+    2,
+    3
+  ],
+  "reactivity": 1,
+  "renderer": "Production C / WASI; continuous 3D anime cast for PC",
+  "wasm_sha256": "6051ce67165e75647c8164be3c2d73c9572dd47bec0fd0e553d4cfcca07a03e0",
+  "production_source_sha256": {
+    "adaptive_scene.c": "ffe39407f41c6b0cccad60abb62496e40e9a1f15b6d017fe2c2ff6ed4cb9d61e",
+    "adaptive_scene.h": "ace8e2905fbacd1b04b5b62ca8bb2995cc6033d23dfa6da9d1d7417d254a3bbd",
+    "adaptive_motion.c": "b45438138340666e5a0a48fb53b8ce97d161acc021be0f1d653bc0dce66b3502",
+    "adaptive_motion.h": "d27f37bf3a7a3bc914441c8c7dfd63a4b4a6aa357d1d967108a60659ed0681d0",
+    "adaptive_cues.h": "db8a20221b6e7ec5272306387a7a9efd3fa3b5054120f89ef570e1b47c36a8df",
+    "slalom_routes.h": "76a5ef707bee9986ac49e2c870c0c2732df749ff21e57f48a16b90dbc0ae1484",
+    "song_format.c": "3cf21b64fa01286ba0789e9bc5790bfe208d147b9119d5ad34f35a966ad8ea68",
+    "song_format.h": "b5a1538eebdf536496aca85cb8dd7b3f659d3152f7c9cdb01c94943b56e620c7",
+    "art_codec.c": "88f4c745a3c444cffeb7406cc01738f480dcda8667204d9e5bde257155711bc9",
+    "art_codec.h": "103b077bcb6a6e3e3bdcd057d734813fffbc45946ae80b024e1f14a21fa5571f",
+    "adaptive_art.h": "bc728d546b17661ac629289d792c942c9988d55f7854e7c41aef4c79226154f3",
+    "record_colors.h": "88316d329ef045b7abac5231cbbf74a5ef38084020d9335d06f8d242a8479cec",
+    "neon_character.c": "f1f8393f08b0076bb37aaa6ce9813e87245533aeb78eaf571ef7bd7518691ad3",
+    "neon_character.h": "a1a0666cf60cab976c274044c529287431aeb472a704337c9678228099be71c4",
+    "neon_rig.h": "08ca2b347b906a220c79357fddadfcaa365e96f0b9df431b30bb1a50b8d6b51d",
+    "foot_effects.c": "d4177baf4ee5b54176b9189dcfa6f9985fe64bb048cafb3ec0959076ce62a924",
+    "foot_effects.h": "97d588c1aebc35e134430f9e5b6c357de485cc0bf74865a89c7f53e59d8dc84f",
+    "nature_art.h": "d71c66e0d0b9ed362ef6a9e4579da04912ba60ed2ae0c5300278c4c5f9762997",
+    "scene_ambience.c": "116daed9004003b158608dab6a152d98c7510d1a78c5f94911409f2cddf88bfd",
+    "scene_ambience.h": "a8bb7832c75c5eecf2078802ecb017e4370e404bb428f9b3d54f57394ace57af"
+  },
+  "wrapper_sha256": "59230a63e3fd63c32f26cdfe44736528302f7a89f05969a67aeb074e92f70708",
+  "active_clip_count": 52,
+  "slalom_clip_count": 36,
+  "slalom_revision": 1,
+  "motion_revision": 3,
+  "sprites": 3321,
+  "skin_count": 4,
+  "skin_ids": [
+    "coral",
+    "ivory",
+    "lavender",
+    "neon"
+  ],
+  "character_revision": 7,
+  "effect_count": 7,
+  "effect_revision": 1,
+  "effect_names": [
+    "自动搭配",
+    "关闭",
+    "蓝黄闪电",
+    "熔金火花",
+    "冰晶星屑",
+    "星环波纹",
+    "能量流焰"
+  ],
+  "effect_auto_mapping": [
+    3,
+    4,
+    5,
+    2
+  ],
+  "studio_version": "1.20.9"
+}

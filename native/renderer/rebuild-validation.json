@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "reference_wasm_sha256": "6051ce67165e75647c8164be3c2d73c9572dd47bec0fd0e553d4cfcca07a03e0",
+  "rebuilt_wasm_sha256": "69b6041ac901ca7b29ea9a5f06a0a1ba17ead5a8d740b97dbf4ce5068abd4180",
+  "bitwise_identical": false,
+  "executable_and_data_sections_byte_identical": true,
+  "only_difference": "WebAssembly custom name section module filename: adaptive-production-renderer.wasm versus renderer.wasm.",
+  "renderer_source_files_checked": 20,
+  "modified_reference_sources": [],
+  "compiler_version": "clang version 23.1.0-rc3 (https://github.com/llvm/llvm-project 895aa2c896ada719451be2e3673c83da8ddf1141)",
+  "rendered_frame_comparison": {
+    "frames": 72,
+    "themes": 6,
+    "characters": 4,
+    "samples_per_look": 3,
+    "different_frames": 0,
+    "max_channel_difference": 0
+  },
+  "editor_prebuilt_renderer_replaced": false,
+  "hardware_access": false,
+  "remote_upload_performed": false
+}
