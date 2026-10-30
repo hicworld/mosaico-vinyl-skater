@@ -15,6 +15,8 @@ import wave
 
 import numpy as np
 
+from studio.paths import is_frozen, resource_path
+
 RATE = 16000
 MAX_SECONDS = 30 * 60
 _TRACKER = None
@@ -161,7 +163,8 @@ def extract_music_features(pcm: np.ndarray, beat_samples: list[int] | np.ndarray
 
 
 def ffmpeg_path() -> str:
-    for item in (os.environ.get("VINYL_FFMPEG"), shutil.which("ffmpeg")):
+    bundled = resource_path("bin", "ffmpeg.exe") if is_frozen() else None
+    for item in (os.environ.get("VINYL_FFMPEG"), bundled, shutil.which("ffmpeg")):
         if item and Path(item).is_file():
             return str(item)
     raise RuntimeError("未找到 FFmpeg。请安装 FFmpeg，或设置 VINYL_FFMPEG 指向 ffmpeg.exe。")
@@ -174,6 +177,22 @@ def configure_model_cache() -> Path:
             Path.home() / ".cache" / "mosaico-vinyl-skater")
     os.environ.setdefault("TORCH_HOME", str(base / "torch"))
     return base
+
+
+def beat_model_path() -> str:
+    """Prefer a user-selected checkpoint or the complete Windows bundle."""
+    override = os.environ.get("MOSAICO_BEAT_MODEL")
+    if override:
+        checkpoint = Path(os.path.expandvars(override)).expanduser().resolve()
+        if not checkpoint.is_file():
+            raise FileNotFoundError("MOSAICO_BEAT_MODEL 指定的节拍模型不存在。")
+        return str(checkpoint)
+    if is_frozen():
+        checkpoint = resource_path("models", "beat-this-small0.ckpt")
+        if not checkpoint.is_file():
+            raise FileNotFoundError("Windows 包缺少节拍模型，请重新下载并完整解压发布包。")
+        return str(checkpoint)
+    return "small0"
 
 
 def decode_audio(source: Path, output: Path) -> np.ndarray:
@@ -229,7 +248,7 @@ def detect_beats(wav_path: Path, pcm: np.ndarray, bpm: float | None = None,
                 import torch
                 from beat_this.inference import File2Beats
                 torch.set_num_threads(max(1, min(4, os.cpu_count() or 1)))
-                _TRACKER = File2Beats(checkpoint_path="small0", device="cpu", dbn=False)
+                _TRACKER = File2Beats(checkpoint_path=beat_model_path(), device="cpu", dbn=False)
             times, downbeats = _TRACKER(str(wav_path))
         except Exception as exc:
             raise RuntimeError("预训练节拍分析未完成。请检查导入环境；也可以填写 BPM 和首拍位置后重新分析。\n" + str(exc)) from exc

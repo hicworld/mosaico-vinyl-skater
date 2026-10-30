@@ -12,7 +12,9 @@
 
 `examples/demo.vskproj` 的配乐由 `tools/create_demo.py` 使用振荡器和固定随机种子合成，没有使用商业录音采样。`examples/demo.lrc` 是用于展示时间轴的原创演示文字，不代表识别了真实演唱。
 
-私人导入歌曲、个人歌词、参考视频、设备镜像、模型权重、字体文件和 FFmpeg 可执行文件没有随仓库分发。
+源码仓库不包含私人导入歌曲、个人歌词、参考视频、设备镜像、模型权重、字体安装文件或 FFmpeg 可执行文件。
+
+Windows Releases 的完整便携包另行附带运行库、FFmpeg、Beat This! small0 与 Whisper base，以支持离线运行。包内 `_internal/resource-manifest.json` 记录组件版本与文件校验值，`_internal/licenses/` 保留第三方许可、FFmpeg 构建配置及对应源码来源。项目自身未附加开源许可的选择不改变这些组件原有的许可。
 
 ## 第三方软件
 

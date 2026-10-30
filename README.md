@@ -21,6 +21,12 @@
 
 动作库登记了 55 个稳定编号，其中 3 个动作停用，界面显示 **52 / 52** 属于正常结果。动作是参考轮滑脚法制作的动漫化表演，适合音乐动画编排。
 
+## Windows 下载使用
+
+不想安装 Python 时，前往 [Releases](https://github.com/hicworld/mosaico-vinyl-skater/releases) 下载 Windows x64 便携包。完整解压后运行 `Mosaico-Vinyl-Skater.exe`，并一起保留 `_internal` 和其他随附文件夹。
+
+下载步骤、数据目录和更新方法见 [Windows 便携版说明](docs/WINDOWS.md)。希望修改源码或自行安装依赖时，继续使用下面的源码运行步骤。
+
 ## 先运行示例
 
 主要在 Windows 上使用与验证，建议 Python 3.11。获取源码：

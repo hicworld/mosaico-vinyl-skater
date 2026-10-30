@@ -18,6 +18,7 @@ from .model import EditorProject
 from .runtime import StudioRenderer, AudioTransport, make_clip_demo
 from .preview_worker import LatestFrameWorker
 from .export_dialog import AnimationExportDialog
+from .paths import data_root, is_frozen, resource_root
 from .scene_auto import SceneAutoController
 from .task_progress import TaskProgress
 from .timeline import Timeline, CLIP_COLORS
@@ -25,8 +26,8 @@ from .themes import (THEMES, RECORD_COLORS, FOOT_EFFECTS,
                      theme_by_id, record_by_id, effect_by_id)
 from .library import filtered_clips, level_choices, clip_description, clip_level, clip_english_name, LEVEL_NAMES
 
-ROOT = Path(__file__).resolve().parents[1]
-OUTPUT = ROOT / "projects"
+ROOT = resource_root()
+OUTPUT = data_root() / "projects"
 COLORS = CLIP_COLORS
 SKIN_LABELS = ("人物 1 · 澄音", "人物 2 · 凛", "人物 3 · 绮星", "人物 4 · 霓虹 Neon")
 SKIN_DESCRIPTIONS = (
@@ -356,7 +357,12 @@ class MotionStudio(tk.Tk):
         try:
             project = EditorProject.load(path)
             full_project = path.suffix.lower() == ".vskproj"
-            self._adopt(project, path if full_project else None,
+            save_path = path if full_project else None
+            if is_frozen() and path.resolve().is_relative_to(resource_root().resolve()):
+                # Bundled examples are read-only resources, even when the
+                # extracted portable folder itself happens to be writable.
+                save_path = None
+            self._adopt(project, save_path,
                         preserve_appearance=not full_project)
         except Exception as exc:
             self._error("无法打开编排", exc)
@@ -802,7 +808,7 @@ class MotionStudio(tk.Tk):
             return
         self.audio.pause()
         self._return_project()
-        default_directory = ROOT / "exports"
+        default_directory = data_root() / "exports"
         self.busy = True
         self.timeline.set_enabled(False)
         for button in self.task_buttons:

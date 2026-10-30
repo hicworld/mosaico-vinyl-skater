@@ -13,3 +13,6 @@ native/renderer/*.h -text whitespace=cr-at-eol
 *.gz binary
 *.wav binary
 *.png binary
+
+# Preserve verbatim third-party license text.
+tools/windows/license-overrides/*.txt -text -whitespace

@@ -25,6 +25,7 @@ import zlib
 import numpy as np
 
 from .phrase_cues import MAX_CUES, MAX_TEXT, RATE, estimate_phrase_ends, validate_scene_cues
+from .paths import data_root, is_frozen, lyric_worker_command, resource_path, resource_root
 
 _MODEL_LOCK = threading.RLock()
 _INFERENCE_LOCK = threading.Lock()
@@ -64,6 +65,10 @@ def model_directory():
     override = os.environ.get('MOSAICO_WHISPER_MODEL')
     if override:
         return Path(os.path.expandvars(override)).expanduser().resolve()
+    if is_frozen():
+        bundled = resource_path('models', 'whisper-base')
+        if (bundled / 'base.pt').is_file():
+            return bundled
     cache = os.environ.get('MOSAICO_MODEL_CACHE')
     base = (Path(os.path.expandvars(cache)).expanduser() if cache else
             Path.home() / '.cache' / 'mosaico-vinyl-skater')
@@ -261,7 +266,7 @@ def _run_child(audio, allow_download, progress):
     so model faults or native DLL failures become a labelled fallback.
     No shell, inherited stdin, audio device, or serial connection is used.
     """
-    root = Path(__file__).resolve().parent.parent
+    root = data_root() if is_frozen() else resource_root()
     with tempfile.TemporaryDirectory(prefix='mosaico-lyrics-') as temporary:
         folder = Path(temporary)
         input_path, output_path = folder / 'audio.npy', folder / 'cues.json'
@@ -270,8 +275,7 @@ def _run_child(audio, allow_download, progress):
         env['PYTHONUTF8'] = '1'
         env['PYTHONIOENCODING'] = 'utf-8'
         env['MOSAICO_WHISPER_MODEL'] = str(model_directory())
-        command = [sys.executable, '-m', 'studio.lyric_recognition', '--worker',
-                   str(input_path), str(output_path), '1' if allow_download else '0']
+        command = lyric_worker_command(input_path, output_path, allow_download)
         events = queue.Queue()
         with (folder / 'stderr.log').open('w+b') as errors:
             child = subprocess.Popen(command, cwd=root, env=env, stdin=subprocess.DEVNULL,
@@ -348,7 +352,10 @@ def _worker_main(argv):
         raise ValueError('Invalid isolated lyric worker arguments')
     audio = np.load(argv[1], allow_pickle=False)
     def progress(message):
-        print(json.dumps({'progress': message}, ensure_ascii=False), flush=True)
+        # A PyInstaller --windowed worker may have no Python stdout even
+        # though its parent created a pipe. Results still use the JSON file.
+        if sys.stdout is not None:
+            print(json.dumps({'progress': message}, ensure_ascii=False), flush=True)
     result = _recognize_in_process(audio, progress=progress, allow_download=argv[3] == '1')
     Path(argv[2]).write_text(json.dumps(result, ensure_ascii=False), encoding='utf-8')
 

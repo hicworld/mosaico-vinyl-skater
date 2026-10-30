@@ -20,8 +20,9 @@ import wasmtime
 from importer.planner import CLIPS
 from importer.themes import (theme_index, theme_from_word, record_index, effect_index,
                              EFFECT_COUNT, THEME_COUNT, LEGACY_THEME_COUNT)
+from .paths import resource_path
 
-ASSETS = Path(__file__).resolve().parent / "assets"
+ASSETS = resource_path("studio", "assets")
 SAMPLE_RATE = 16000
 _HEADER = struct.Struct("<4sHH10I80s")
 _CLIP_BEATS = tuple(clip["beats"] for clip in CLIPS)
